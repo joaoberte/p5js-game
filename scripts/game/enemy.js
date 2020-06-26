@@ -1,8 +1,8 @@
 class Enemy extends Animation {
-    constructor(matrix, image, x, charWidth, charHeight, widthSprite, heightSprite) {
-        super(matrix, image, x, charWidth, charHeight, widthSprite, heightSprite)
+    constructor(matrix, image, x, groundY, charWidth, charHeight, widthSprite, heightSprite, speed) {
+        super(matrix, image, x, groundY, charWidth, charHeight, widthSprite, heightSprite)
 
-        this.speed = 5;
+        this.speed = speed;
     }
 
     Move() {

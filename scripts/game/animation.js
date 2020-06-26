@@ -1,5 +1,5 @@
 class Animation {
-    constructor(matrix, image, x, charWidth, charHeight, widthSprite, heightSprite) {
+    constructor(matrix, image, x, groundY, charWidth, charHeight, widthSprite, heightSprite) {
         this.matrix = matrix;
         this.image = image;
         this.charWidth = charWidth;
@@ -7,7 +7,7 @@ class Animation {
         this.widthSprite = widthSprite;
         this.heightSprite = heightSprite;
         this.x = x;
-        this.y = height - charHeight;
+        this.y = height - charHeight - groundY;
 
         this.currentFrame = 0;
     }
