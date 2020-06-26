@@ -52,18 +52,18 @@ let backgroundImage;
 let characterImage;
 let enemyImage;
 let gameSound;
+let jumpSound;
 
 let scenery;
 let character;
 let enemy;
-
 
 function preload() {
     backgroundImage = loadImage("images/cenario/floresta.png");
     characterImage = loadImage("images/personagem/correndo.png");
     enemyImage = loadImage("images/inimigos/gotinha.png")
     gameSound = loadSound("sounds/trilha_jogo.mp3");
-
+    jumpSound = loadSound("sounds/somPulo.mp3");
 }
 
 function setup() {
@@ -74,11 +74,27 @@ function setup() {
     //gameSound.loop();
 }
 
+function keyPressed() {
+    if (key === "ArrowUp" || key === "SpaceBar") {
+        jumpSound.play();
+        character.Jump();
+    }
+    if (key === "r" || key === "R") {
+        loop();
+    }
+}
+
 function draw() {
     scenery.Show();
     scenery.Move();
 
     character.Show();
+    character.Gravity();
 
     enemy.Show();
+    enemy.Move();
+
+    if (character.isColliding(enemy)) {
+        noLoop();
+    }
 }
