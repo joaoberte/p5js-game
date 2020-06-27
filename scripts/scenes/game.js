@@ -22,6 +22,8 @@ class Game {
 
         scoreBoard = new ScoreBoard();
         //gameSound.loop();
+
+        gameState = "menu";
     }
 
     KeyControl() {
@@ -45,7 +47,16 @@ class Game {
         }
     }
 
-    DrawGame() {
+    Draw() {
+        scenery1.Show();
+        scenery1.Move();
+        scenery2.Show();
+        scenery2.Move();
+        scenery3.Show();
+        scenery3.Move();
+        scenery4.Show();
+        scenery4.Move();
+
         character.Show();
         character.Gravity();
 
@@ -71,20 +82,7 @@ class Game {
 
         scoreBoard.Show();
         scoreBoard.AddPoints();
-    }
 
-    DrawBackground(){
-        scenery1.Show();
-        scenery1.Move();
-        scenery2.Show();
-        scenery2.Move();
-        scenery3.Show();
-        scenery3.Move();
-        scenery4.Show();
-        scenery4.Move();
-    }
-
-    DrawFloor(){
         scenery5.Show();
         scenery5.Move();
         scenery6.Show();

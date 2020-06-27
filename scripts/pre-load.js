@@ -6,6 +6,9 @@ function preload() {
     backgroundImage5 = loadImage("images/cenario/Hills_Layer_05.png");
     backgroundImage6 = loadImage("images/cenario/Hills_Layer_06.png");
 
+    menuImage = loadImage("images/assets/telaInicial.png");
+    menuFont = loadFont("images/assets/fonteTelaInicial.otf");
+    starsImage = loadImage("images/assets/stars.png");
     gameOverImage = loadImage("images/assets/game-over.png");
     characterImage = loadImage("images/personagem/correndo.png");
     enemyImage = loadImage("images/inimigos/gotinha.png");

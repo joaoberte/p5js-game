@@ -3,6 +3,15 @@ function setup() {
 
     game = new Game();
     game.Setup();
+
+    menu = new Menu();
+
+    states = {
+        game,
+        menu
+    }
+
+    buttonState = new ButtonState("Start", width, height/1.4);
 }
 
 function keyPressed() {
@@ -10,9 +19,5 @@ function keyPressed() {
 }
 
 function draw() {
-    game.DrawBackground();
-
-    game.DrawGame();
-
-    game.DrawFloor();
+    states[gameState].Draw();
 }
