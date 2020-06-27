@@ -52,12 +52,12 @@ class Character extends Animation {
         //     enemy.charHeight * precision);
 
         return collideRectRect(
-            this.x * 0.2,
-            this.y * 0.2,
+            this.x + this.charWidth * 0.2,
+            this.y + this.charHeight * 0.2,
             this.charWidth * precision,
             this.charHeight * precision,
-            enemy.x * 0.2,
-            enemy.y * 0.2,
+            enemy.x + this.charWidth * 0.2,
+            enemy.y + this.charHeight * 0.2,
             enemy.charWidth * precision,
             enemy.charHeight * precision);
     }
