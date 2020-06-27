@@ -93,6 +93,9 @@ const characterMatrix = [
 
 const enemies = [];
 
+let game;
+let gameState = "Menu";
+
 let backgroundImage1;
 let backgroundImage2;
 let backgroundImage3;
@@ -119,4 +122,3 @@ let bigEnemy;
 let flyingEnemy;
 
 let scoreBoard;
-let currentEnemy = 0;
