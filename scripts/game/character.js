@@ -6,15 +6,24 @@ class Character extends Animation {
         this.y = this.initialY;
 
         this.jumpSpeed = 0;
-        this.gravitySpeed = 2;
+        this.gravitySpeed = 1;
         this.doubleJumpFlag = 0;
+        this.jumpHeight = -22;
     }
 
     Jump() {
         if (this.doubleJumpFlag < 2) {
-            this.jumpSpeed = - 30;
+            this.jumpSpeed = this.jumpHeight;
             this.doubleJumpFlag++;
         }
+    }
+
+    DashFront() {
+        this.x = this.x + 130;
+    }
+
+    DashBack() {
+        this.x = this.x - 130;
     }
 
     Gravity() {
@@ -25,21 +34,30 @@ class Character extends Animation {
             this.y = this.initialY;
         }
 
-        if(this.y == this.initialY){
+        if (this.y == this.initialY) {
             this.doubleJumpFlag = 0;
         }
     }
 
     isColliding(enemy) {
         const precision = 0.7;
+        // noFill();
+        // rect(this.x + this.charWidth * 0.2,
+        //     this.y + this.charHeight * 0.2,
+        //     this.charWidth * precision,
+        //     this.charHeight * precision);
+        // rect(enemy.x + enemy.charWidth * 0.2,
+        //     enemy.y + enemy.charHeight * 0.2,
+        //     enemy.charWidth * precision,
+        //     enemy.charHeight * precision);
 
         return collideRectRect(
-            this.x,
-            this.y,
+            this.x * 0.2,
+            this.y * 0.2,
             this.charWidth * precision,
             this.charHeight * precision,
-            enemy.x,
-            enemy.y,
+            enemy.x * 0.2,
+            enemy.y * 0.2,
             enemy.charWidth * precision,
             enemy.charHeight * precision);
     }

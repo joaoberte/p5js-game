@@ -60,6 +60,25 @@ const bigEnemyMatrix = [
     [800, 2000],
 ];
 
+const flyingEnemyMatrix = [
+    [0, 0],
+    [200, 0],
+    [400, 0],
+    [0, 150],
+    [200, 150],
+    [400, 150],
+    [0, 300],
+    [200, 300],
+    [400, 300],
+    [0, 450],
+    [200, 450],
+    [400, 450],
+    [0, 600],
+    [200, 600],
+    [400, 600],
+    [0, 750],
+];
+
 const characterMatrix = [
     [0, 0],
     [220, 0],
@@ -79,6 +98,8 @@ const characterMatrix = [
     [660, 810]
 ];
 
+const enemies = [];
+
 let backgroundImage1;
 let backgroundImage2;
 let backgroundImage3;
@@ -93,15 +114,18 @@ let scenery5;
 let scenery6;
 
 let characterImage;
-let enemyImage;
-let bigEnemyImage;
+let gameOverImage;
 
 let gameSound;
 let jumpSound;
+let dashSound;
 
 let character;
 let enemy;
 let bigEnemy;
+let flyingEnemy;
+
+let scoreBoard;
 
 function preload() {
     backgroundImage1 = loadImage("images/cenario/Hills_Layer_01.png");
@@ -111,28 +135,38 @@ function preload() {
     backgroundImage5 = loadImage("images/cenario/Hills_Layer_05.png");
     backgroundImage6 = loadImage("images/cenario/Hills_Layer_06.png");
 
+    gameOverImage = loadImage("images/assets/game-over.png");
     characterImage = loadImage("images/personagem/correndo.png");
-    enemyImage = loadImage("images/inimigos/gotinha.png")
-    bigEnemyImage = loadImage("images/inimigos/troll.png")
+    enemyImage = loadImage("images/inimigos/gotinha.png");
+    bigEnemyImage = loadImage("images/inimigos/troll.png");
+    flyingEnemyImage = loadImage("images/inimigos/gotinha-voadora.png");
+
 
     gameSound = loadSound("sounds/trilha_jogo.mp3");
     jumpSound = loadSound("sounds/somPulo.mp3");
+    dashSound = loadSound("sounds/dash.mp3");
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(windowWidth - 20, windowHeight - 20);
 
-    scenery1 = new Scenery(backgroundImage1, 0.3);
-    scenery2 = new Scenery(backgroundImage2, 0.5);
-    scenery3 = new Scenery(backgroundImage3, 0.8);
-    scenery4 = new Scenery(backgroundImage4, 1.3);
-    scenery5 = new Scenery(backgroundImage5, 1.9);
+    scenery1 = new Scenery(backgroundImage1, 0.4);
+    scenery2 = new Scenery(backgroundImage2, 0.6);
+    scenery3 = new Scenery(backgroundImage3, 1);
+    scenery4 = new Scenery(backgroundImage4, 1.5);
+    scenery5 = new Scenery(backgroundImage5, 2.5);
     scenery6 = new Scenery(backgroundImage6, 3);
 
     character = new Character(characterMatrix, characterImage, 0, 45, 110, 135, 220, 270);
-    enemy = new Enemy(enemyMatrix, enemyImage, width - 52, 45, 52, 52, 104, 104, 5);
-    bigEnemy = new Enemy(bigEnemyMatrix, bigEnemyImage, width - 200, 13, 200, 200, 400, 400, 3);
+    const enemy = new Enemy(enemyMatrix, enemyImage, width - 52, 45, 52, 52, 104, 104, 9, 700);
+    const bigEnemy = new Enemy(bigEnemyMatrix, bigEnemyImage, width - 200, 13, 200, 200, 400, 400, 6, 1000);
+    const flyingEnemy = new Enemy(flyingEnemyMatrix, flyingEnemyImage, width - 52, 250, 100, 75, 200, 150, 7, 1500);
 
+    enemies.push(enemy);
+    enemies.push(bigEnemy);
+    enemies.push(flyingEnemy);
+
+    scoreBoard = new ScoreBoard();
     //gameSound.loop();
 }
 
@@ -141,6 +175,17 @@ function keyPressed() {
         jumpSound.play();
         character.Jump();
     }
+
+    if (key === "ArrowRight") {
+        dashSound.play();
+        character.DashFront();
+    }
+
+    if (key === "ArrowLeft") {
+        dashSound.play();
+        character.DashBack();
+    }
+
     if (key === "r" || key === "R") {
         loop();
     }
@@ -159,18 +204,21 @@ function draw() {
     character.Show();
     character.Gravity();
 
-    enemy.Show();
-    enemy.Move();
+    enemies.forEach(enemy => {
+        enemy.Show();
+        enemy.Move();
 
-    bigEnemy.Show();
-    bigEnemy.Move();
+        if (character.isColliding(enemy)) {
+            //noLoop();
+            image(gameOverImage, width/2 - 200, height/3);
+        }
+    })
+
+    scoreBoard.Show();
+    scoreBoard.AddPoints();
 
     scenery5.Show();
     scenery5.Move();
     scenery6.Show();
     scenery6.Move();
-
-    if (character.isColliding(enemy)) {
-        //noLoop();
-    }
 }
