@@ -14,8 +14,8 @@ function preload() {
     enemyImage = loadImage("images/inimigos/gotinha.png");
     bigEnemyImage = loadImage("images/inimigos/troll.png");
     flyingEnemyImage = loadImage("images/inimigos/bird.png");
+    lifeImage = loadImage("images/assets/coracao.png")
 
     gameSound = loadSound("sounds/trilha_jogo.mp3");
     jumpSound = loadSound("sounds/somPulo.mp3");
-    dashSound = loadSound("sounds/dash.mp3");
 }

@@ -17,13 +17,14 @@ class Menu {
     _text() {
         textAlign(CENTER);
         textFont(menuFont);
-        textSize(90);
+        textSize(120);
+        fill(0, 0, 50, 200);
         text("Hipsta's", width / 2 + map(mouseX, 0, width, -5, 5), height / 4 + map(mouseY, 0, height, -5, 5));
-        textSize(70);
+        textSize(80);
         text("adventure", width / 2 + map(mouseX, 0, width, -5, 5), height / 3 + map(mouseY, 0, height, -5, 5));
     }
 
-    _button(){
+    _button() {
         buttonState.Draw();
     }
 }

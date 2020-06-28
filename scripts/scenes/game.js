@@ -11,16 +11,17 @@ class Game {
         scenery5 = new Scenery(backgroundImage5, 2.5);
         scenery6 = new Scenery(backgroundImage6, 3);
 
-        character = new Character(characterMatrix, characterImage, 0, 45, 110, 135, 220, 270);
-        const enemy = new Enemy(enemyMatrix, enemyImage, width - 52, 45, 52, 52, 104, 104, 9, 100);
-        const bigEnemy = new Enemy(bigEnemyMatrix, bigEnemyImage, width - 200, 13, 200, 200, 400, 400, 6, 100);
-        const flyingEnemy = new Enemy(flyingEnemyMatrix, flyingEnemyImage, width - 46, 250, 64, 64, 32, 32, 7, 100);
+        character = new Character(characterMatrix, characterImage, 0, 45, 110, 135, 220, 270, 2);
+        const enemy = new Enemy(enemyMatrix, enemyImage, width - 52, 45, 52, 52, 104, 104, 2, 9);
+        const bigEnemy = new Enemy(bigEnemyMatrix, bigEnemyImage, width - 200, 13, 200, 200, 400, 400, 1, 6);
+        const flyingEnemy = new Enemy(flyingEnemyMatrix, flyingEnemyImage, width - 46, 250, 64, 64, 32, 32, 4, 7);
 
         enemies.push(enemy);
         enemies.push(bigEnemy);
         enemies.push(flyingEnemy);
 
         scoreBoard = new ScoreBoard();
+        life = new Life(3, 3);
         //gameSound.loop();
 
         gameState = "menu";
@@ -32,18 +33,8 @@ class Game {
             character.Jump();
         }
 
-        if (key === "ArrowRight") {
-            dashSound.play();
-            character.DashFront();
-        }
-
-        if (key === "ArrowLeft") {
-            dashSound.play();
-            character.DashBack();
-        }
-
         if (key === "r" || key === "R") {
-            loop();
+            this.Reset();
         }
     }
 
@@ -56,6 +47,8 @@ class Game {
         scenery3.Move();
         scenery4.Show();
         scenery4.Move();
+
+        life.Draw();
 
         character.Show();
         character.Gravity();
@@ -75,9 +68,14 @@ class Game {
         enemy.Show();
         enemy.Move();
 
-        if (character.isColliding(enemy)) {
-            //noLoop();
+        if (life.lifes === 0) {
             image(gameOverImage, width / 2 - 200, height / 3);
+            noLoop();
+        }
+
+        if (character.isColliding(enemy)) {
+            life.LoseLife();
+            character.beInvinceble();
         }
 
         scoreBoard.Show();
@@ -87,5 +85,27 @@ class Game {
         scenery5.Move();
         scenery6.Show();
         scenery6.Move();
+    }
+
+    Reset() {
+        scenery1 = new Scenery(backgroundImage1, 0.4);
+        scenery2 = new Scenery(backgroundImage2, 0.6);
+        scenery3 = new Scenery(backgroundImage3, 1);
+        scenery4 = new Scenery(backgroundImage4, 1.5);
+        scenery5 = new Scenery(backgroundImage5, 2.5);
+        scenery6 = new Scenery(backgroundImage6, 3);
+
+        character = new Character(characterMatrix, characterImage, 0, 45, 110, 135, 220, 270, 2);
+
+        enemies[0] = new Enemy(enemyMatrix, enemyImage, width - 52, 45, 52, 52, 104, 104, 2, 9);
+        enemies[1] = new Enemy(bigEnemyMatrix, bigEnemyImage, width - 200, 13, 200, 200, 400, 400, 1, 6);
+        enemies[2] = new Enemy(flyingEnemyMatrix, flyingEnemyImage, width - 46, 250, 64, 64, 32, 32, 4, 7);
+
+        this.currentEnemy = 0;
+        scoreBoard = new ScoreBoard();
+        life = new Life(3, 3);
+        //gameSound.loop();
+
+        loop();
     }
 }

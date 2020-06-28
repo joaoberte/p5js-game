@@ -1,5 +1,5 @@
 class Animation {
-    constructor(matrix, image, x, groundY, charWidth, charHeight, widthSprite, heightSprite) {
+    constructor(matrix, image, x, groundY, charWidth, charHeight, widthSprite, heightSprite, smooth) {
         this.matrix = matrix;
         this.image = image;
         this.charWidth = charWidth;
@@ -8,6 +8,8 @@ class Animation {
         this.heightSprite = heightSprite;
         this.x = x;
         this.y = height - charHeight - groundY;
+        this.smooth = smooth;
+        this.animeCycles = 0;
 
         this.currentFrame = 0;
     }
@@ -20,9 +22,15 @@ class Animation {
     }
 
     Animate() {
-        if (this.currentFrame >= this.matrix.length - 1)
-            this.currentFrame = 0;
+        if (this.animeCycles >= this.smooth) {
+            if (this.currentFrame >= this.matrix.length - 1) {
+                this.currentFrame = 0;
+            }
 
-        this.currentFrame++;
+            this.currentFrame++;
+            this.animeCycles = 0;
+        }
+
+        this.animeCycles++;
     }
 }

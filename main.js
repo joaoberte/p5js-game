@@ -1,5 +1,5 @@
 function setup() {
-    createCanvas(windowWidth - 20, windowHeight - 20);
+    createCanvas(windowWidth, windowHeight);
 
     game = new Game();
     game.Setup();
@@ -11,7 +11,7 @@ function setup() {
         menu
     }
 
-    buttonState = new ButtonState("Start", width, height/1.4);
+    buttonState = new ButtonState("Start", width, height / 1.4);
 }
 
 function keyPressed() {

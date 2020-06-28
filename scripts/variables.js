@@ -117,15 +117,16 @@ let menuFont;
 let starsImage;
 let characterImage;
 let gameOverImage;
+let lifeImage;
 
 let gameSound;
 let jumpSound;
-let dashSound;
 
 let character;
 let enemy;
 let bigEnemy;
 let flyingEnemy;
+let life;
 
 let scoreBoard;
 let buttonState;
